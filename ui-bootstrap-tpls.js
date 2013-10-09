@@ -871,7 +871,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.position'])
     var current = startDate, i = 0;
     while (i < n) {
       dates[i++] = new Date(current);
-      current.setDate( current.getUTCDate() + 1 );
+      current.setUTCDate( current.getUTCDate() + 1 );
     }
     return dates;
   }
