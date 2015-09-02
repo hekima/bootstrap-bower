@@ -1168,6 +1168,10 @@ function ($compile, $parse, $document, $position, dateFilter, datepickerPopupCon
       }
       ngModel.$parsers.unshift(parseDate);
 
+      ngModel.$formatters.push(function (value) {
+        return ngModel.$isEmpty(value) ? value : dateFilter(value, dateFormat);
+      });
+
       // Inner change
       scope.dateSelection = function() {
         ngModel.$setViewValue(scope.date);
@@ -1184,9 +1188,9 @@ function ($compile, $parse, $document, $position, dateFilter, datepickerPopupCon
         });
       });
 
-      // Outter change
+      // Outer change
       ngModel.$render = function() {
-        var date = ngModel.$viewValue ? dateFilter(ngModel.$viewValue, dateFormat) : '';
+        var date = ngModel.$viewValue ? dateFilter(parseDate(ngModel.$viewValue), dateFormat) : '';
         element.val(date);
 
         updateCalendar();
