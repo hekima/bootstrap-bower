@@ -1190,8 +1190,10 @@ function ($compile, $parse, $document, $position, dateFilter, datepickerPopupCon
 
       // Outer change
       ngModel.$render = function() {
-        var date = ngModel.$viewValue ? dateFilter(parseDate(ngModel.$viewValue), dateFormat) : '';
+        var date = ngModel.$viewValue ? parseDate(ngModel.$viewValue) : null;
+        var display = date ? dateFilter(date, dateFormat) : '';
         element.val(date);
+        scope.date = date;
 
         updateCalendar();
       };
